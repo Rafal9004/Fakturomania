@@ -1,0 +1,71 @@
+<div class="productBox" ng-controller="productCtrl">
+
+    <div class="searchBox">
+        <span>Wyszukaj produkt: </span>
+        <input class="inputSearch" ng-model="search.nazwa" placeholder="Nawa produktu">
+        <input class="inputSearch" ng-model="search.cena_netto" placeholder="Cena netto produktu">
+        <input class="inputSearch" ng-model="search.cena_brutto" placeholder="Cena brutto produktu">
+        <span class="addFirm"><button class="buttonAddFirm" ng-click="addDataProduct()">Dodaj produkt</button></span>
+    </div>
+
+    <table>
+        <thead>
+            <th class="thSort">
+                <button  ng-click="sortBy('nazwa')">Nazwa produktu <span class="sortorder" ng-show="propertyName === 'nazwa'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('cena_netto')">Cena netto <span class="sortorder" ng-show="propertyName === 'cena_netto'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('cena_brutto')">Cena brutto <span class="sortorder" ng-show="propertyName === 'cena_brutto'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th>Akcja</th>
+            <th>Usuń</th>
+        </thead>
+        <tbod>
+            <tr ng-repeat="product in productList | filter : search | orderBy : propertyName : reverse">
+                <td>{{product.nazwa}}</td>
+                <td>{{product.cena_netto}}</td>
+                <td>{{product.cena_brutto}}</td>
+                <td class="centerRow"><button class="edit" ng-click="editDataProduct(product)">Edytuj</button></td>
+                <td class="centerRow"><button class="delete" ng-click="deleteDataProduct(product.id_produktu, product)">Usuń</button></td>
+            </tr>
+        </tbod>
+    </table>
+
+    <script type="text/ng-template" id="modalProductEdit.html">
+        <div class="modal-header">
+            <span>Nazwa produktu: <input type="text" ng-model="newName"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane produktu:</p>
+            <div class="dataFirm">
+                <span class="blockSpan"><span>Cena netto:</span> <input type="text" ng-model="newNetPrice"></span>
+                <span class="blockSpan"><span>Cena brutto:</span> <input type="text" value="{{newNetPrice * 1.23}}" readonly="true"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Zapisz</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="addProductModal.html">
+        <div class="modal-header">
+            <span>Nazwa produktu: <input id="name" type="text" required ng-model="nazwa"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane produktu:</p>
+            <div class="dataFirm">
+                <span class="blockSpan"><span>Cena netto:</span> <input type="text" ng-model="netPrice"></span>
+                <span class="blockSpan"><span>Cena brutto:</span> <input type="text" value="{{netPrice * 1.23}}" ng-readonly="true"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Dodaj</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+</div>

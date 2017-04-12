@@ -1,0 +1,77 @@
+<div class="companyBox"  ng-controller="companyCtrl" >
+
+    <div class="searchBox">
+        <span>Wyszukaj firmę: </span>
+        <input class="inputSearch" ng-model="search.nazwa" placeholder="Nawa firmy">
+        <input class="inputSearch" ng-model="search.adres" placeholder="Adres firmy">
+        <input class="inputSearch" ng-model="search.nip" placeholder="Nip firmy">
+        <input class="inputSearch" ng-model="search.nr_konta" placeholder="Numer konta">
+        <span class="addCompany"><button class="buttonAddCompany" ng-click="addDataCompany()">Dodaj firmę</button></span>
+    </div>
+
+    <table>
+        <thead>
+            <th class="thSort">
+                <button  ng-click="sortBy('nazwa')">Nazwa firmy <span class="sortorder" ng-show="propertyName === 'nazwa'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('adres')">Adres <span class="sortorder" ng-show="propertyName === 'adres'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('nip')">NIP <span class="sortorder" ng-show="propertyName === 'nip'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('nr_konta')">Nr konta <span class="sortorder" ng-show="propertyName === 'nr_konta'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th>Akcja</th>
+            <th>Usuń</th>
+        </thead>
+        <tbod>
+            <tr ng-repeat="company in companyList | filter : search | orderBy : propertyName : reverse">
+                <td>{{company.nazwa}}</td>
+                <td>{{company.adres}}</td>
+                <td>{{company.nip}}</td>
+                <td>{{company.nr_konta}}</td>
+                <td class="centerRow"><button class="edit" ng-click="editDataCompany(company)">Edytuj</button></td>
+                <td class="centerRow"><button class="delete" ng-click="deleteDataCompany(company.id_firmy, company)">Usuń</button></td>
+            </tr>
+        </tbod>
+    </table>
+
+    <script type="text/ng-template" id="modalCompanyEdit.html">
+        <div class="modal-header">
+            <span>Nazwa firmy: <input type="text" ng-model="newName"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane firmy:</p>
+            <div class="dataBox">
+                <span class="blockSpan"><span>Adres:</span> <input type="text" ng-model="newAddress"></span>
+                <span class="blockSpan"><span>NIP:</span> <input type="text" ng-model="newNIP"></span>
+                <span class="blockSpan"><span>Nr konta:</span> <input type="text" ng-model="newBankNumber"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Zapisz</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="addCompanyModal.html">
+        <div class="modal-header">
+            <span>Nazwa firmy: <input id="name" type="text" required ng-model="nazwa"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane firmy:</p>
+            <div class="dataBox">
+                <span class="blockSpan"><span>Adres:</span> <input id="address" type="text" required ng-model="adres"></span>
+                <span class="blockSpan"><span>NIP:</span> <input id="nip" type="number" required ng-model="nip"></span>
+                <span class="blockSpan"><span>Nr konta:</span> <input id="bankAccount" type="number" required ng-model="nr_konta"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Dodaj</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+</div>

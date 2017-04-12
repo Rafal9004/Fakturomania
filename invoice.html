@@ -1,0 +1,49 @@
+<div class="firmBox">
+
+    <div class="searchBox">
+        <span>Wyszukaj Fakturę: </span>
+        <input class="inputSearch" ng-model="search.nazwa" placeholder="Numer faktury">
+        <input class="inputSearch" ng-model="search.cena_netto" placeholder="Nazwa firmy">
+        <input class="inputSearch" ng-model="search.cena_brutto" placeholder="Nazwa produktu">
+        <span class="addFirm"><button class="buttonAddFirm" ng-click="addDataProduct()">Dodaj fakturę</button></span>
+    </div>
+
+    <table>
+        <thead>
+            <th>Nr faktury</th>
+            <th>Nazwa firmy</th>
+            <th>Nazwa produktu</th>
+            <th>Akcja</th>
+            <th>Usuń</th>
+        </thead>
+        <tbod>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button class="edit" ng-click="editDataFirm(firm)">Edytuj</button></td>
+                <td><button class="delete" ng-click="deleteDataFirm(firm.id, $index)">Usuń</button></td>
+            </tr>
+        </tbod>
+    </table>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <span>Nazwa firmy: <input type="text" ng-model="newName"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane firmy:</p>
+            <div class="dataFirm">
+                <span class="blockSpan"><span>Adres:</span> <input type="text" ng-model="newAddress"></span>
+                <span class="blockSpan"><span>NIP:</span> <input type="text" ng-model="newNIP"></span>
+                <span class="blockSpan"><span>Nr konta:</span> <input type="text" ng-model="newBankNumber"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Zapisz</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+</div>

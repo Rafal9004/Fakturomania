@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+}
+
+div.nav {
+    background-color: #00004d;
+}
+
+div.nav ul {
+    list-style: none;
+}
+
+div.nav ul li {
+    display: inline-block;
+    color: white;
+    padding: 10px;
+}
+
+div.nav ul a {
+    color: white;
+    text-decoration: none;
+}
+
+div.nav ul a:hover {
+    color: red;
+}
+
+div.companyBox, div.productBox {
+    margin: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th.thSort button {
+    background-color: white;
+    color: black;
+    width: 100%;
+    height: 100%;
+}
+
+th.thSort button:hover{
+    color: red;
+}
+
+table td {
+    border: solid 1px;
+    padding: 5px 10px;
+}
+
+table td.centerRow{
+    text-align: center;
+}
+
+button {
+    padding: 7px;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: red;
+}
+
+.sortorder:after {
+  content: '\25b2';
+}
+.sortorder.reverse:after {
+  content: '\25bc';
+}
+
+
+/*--------------------------------------------Panel wyszukiwania-----------------------------------------*/
+.searchBox {
+    text-align: center;
+    padding: 25px 0;
+}
+.searchBox input {
+    padding: 5px;
+}
+
+/*--------------------------------------------Dialog------------------------------------------------------*/
+.modal.fade.ng-scope.ng-isolate-scope.in {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-header.ng-scope {
+    text-align: center;
+}
+
+.modal-content {
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    margin-top: 10%;
+    padding: 20px;
+}
+
+.modal-footer.ng-scope {
+    padding: 10px 0;
+    text-align: center;
+}
+
+span.blockSpan {
+    display: block;
+    margin: 20px;
+}
+
+span.blockSpan span {
+    width: 80px;
+    display: inline-block;
+}
