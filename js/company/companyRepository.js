@@ -7,8 +7,8 @@ angular.module("repositoryCompany", [])
                 });
             },
 
-            sendDataCompany: function(newComapny){
-                $http.post('ajax.php', newComapny, {params:{"dataType": "company"}}).then(function (response) {
+            sendDataCompany: function(newCompany){
+                $http.post('ajax.php', newCompany, {params:{"dataType": "company"}}).then(function (response) {
                     return(response.data);
                 }, function (response) {
                    console.log(response.data,response.status);

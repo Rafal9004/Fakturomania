@@ -25,7 +25,7 @@ angular.module("repositoryProduct", [])
 
             updateDataProduct: function(updateProduct){
                 $http.put('ajax.php', updateProduct, {params: {"dataType": "products"}}).then(function (response) {
-                    console.log(response.data);
+                    
                 }, function (response) {
                     console.log(response.data,response.status);
                 });

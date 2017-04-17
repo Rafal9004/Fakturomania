@@ -1,17 +1,16 @@
 angular.module("modelCompany", [])
     .factory("localModelCompany", function(){
 
-    function Company(nazwa, adres, nip, nr_konta){
-        this.nazwa = nazwa;
-        this.adres = adres;
+    function Company(nameCompany, address, nip, accountNumber){
+        this.nameCompany = nameCompany;
+        this.address = address;
         this.nip = nip;
-        this.nr_konta = nr_konta;
+        this.accountNumber = accountNumber;
     }
 
     return{
-        createCompany: function(nazwa, adres, nip, nr_konta){
-            var company = new Company(nazwa, adres, nip, nr_konta);
-            return company;
+        createCompany: function(nameCompany, address, nip, accountNumber){
+            return new Company(nameCompany, address, nip, accountNumber);
         }
     }
 

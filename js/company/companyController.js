@@ -1,11 +1,10 @@
 firmApp.controller('companyCtrl', function ($scope, $http, $uibModal, $filter, localModelCompany, localRepositoryCompany) {
-    $scope.companyList = [];
 
     localRepositoryCompany.getDataCompany (function(data){
         $scope.companyList = data;
     });
 
-    $scope.propertyName = 'nazwa';
+    $scope.propertyName = 'nameCompany';
     $scope.reverse = true;
 
     $scope.sortBy = function(propertyName) {
@@ -27,7 +26,12 @@ firmApp.controller('companyCtrl', function ($scope, $http, $uibModal, $filter, l
 
         modalInstance.result.then(function (newCompany){
             if(newCompany){
-                $scope.companyList.push(newCompany);
+                if($scope.companyList){
+                    $scope.companyList.push(newCompany);
+                } else {
+                    $scope.companyList = [];
+                    $scope.companyList.push(newCompany);
+                }
             }
         });
     };
@@ -61,21 +65,12 @@ firmApp.controller('companyCtrl', function ($scope, $http, $uibModal, $filter, l
 
 firmApp.controller('editCompanyCtrl', function ($scope, $http, $uibModalInstance, company, localRepositoryCompany) {
     $scope.company = company;
-    $scope.newName = $scope.company.nazwa;
-    $scope.newAddress = $scope.company.adres;
-    $scope.newNIP = $scope.company.nip;
-    $scope.newBankNumber = $scope.company.nr_konta;
 
     $scope.close = function() {
         $uibModalInstance.close();
     };
 
     $scope.save = function() {
-        $scope.company.nazwa = $scope.newName;
-        $scope.company.adres = $scope.newAddress;
-        $scope.company.nip = $scope.newNIP;
-        $scope.company.nr_konta = $scope.newBankNumber;
-
         localRepositoryCompany.updateDataCompany($scope.company);
 
         $uibModalInstance.close($scope.company);
@@ -90,7 +85,7 @@ firmApp.controller('addCompanyCtrl', function ($scope, $http, $uibModalInstance,
 
     $scope.save = function() {
         var newCompany = null;
-        newCompany = localModelCompany.createCompany($scope.nazwa, $scope.adres, $scope.nip, $scope.nr_konta);
+        newCompany = localModelCompany.createCompany($scope.nameCompany, $scope.address, $scope.nip, $scope.accountNumber);
 
         localRepositoryCompany.sendDataCompany(newCompany);
 

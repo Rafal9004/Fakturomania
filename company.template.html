@@ -1,0 +1,77 @@
+<div class="companyBox mainDataBox"  ng-controller="companyCtrl" >
+
+    <div class="searchBox">
+        <span>Wyszukaj firmę: </span>
+        <input class="inputSearch" ng-model="search.nameCompany" placeholder="Nawa firmy">
+        <input class="inputSearch" ng-model="search.address" placeholder="Adres firmy">
+        <input class="inputSearch" ng-model="search.nip" placeholder="Nip firmy">
+        <input class="inputSearch" ng-model="search.accountNumber" placeholder="Numer konta">
+        <span class="addCompany"><button class="buttonAddCompany" ng-click="addDataCompany()">Dodaj firmę</button></span>
+    </div>
+
+    <table>
+        <thead>
+            <th class="thSort">
+                <button  ng-click="sortBy('nameCompany')">Nazwa firmy <span class="sortorder" ng-show="propertyName === 'nameCompany'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('address')">Adres <span class="sortorder" ng-show="propertyName === 'address'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('nip')">NIP <span class="sortorder" ng-show="propertyName === 'nip'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('accountNumber')">Nr konta <span class="sortorder" ng-show="propertyName === 'accountNumber'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th>Akcja</th>
+            <th>Usuń</th>
+        </thead>
+        <tbod>
+            <tr ng-repeat="company in companyList | filter : search | orderBy : propertyName : reverse">
+                <td>{{company.nameCompany}}</td>
+                <td>{{company.address}}</td>
+                <td>{{company.nip}}</td>
+                <td>{{company.accountNumber}}</td>
+                <td class="centerRow"><button class="edit" ng-click="editDataCompany(company)">Edytuj</button></td>
+                <td class="centerRow"><button class="delete" ng-click="deleteDataCompany(company.idCompany, company)">Usuń</button></td>
+            </tr>
+        </tbod>
+    </table>
+
+    <script type="text/ng-template" id="modalCompanyEdit.html">
+        <div class="modal-header">
+            <span>Nazwa firmy: <input type="text" ng-model="company.nameCompany"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane firmy:</p>
+            <div class="dataBox">
+                <span class="blockSpan"><span class="inlineSpan">Adres:</span> <input type="text" ng-model="company.address"></span>
+                <span class="blockSpan"><span class="inlineSpan">NIP:</span> <input type="text" ng-model="company.nip"></span>
+                <span class="blockSpan"><span class="inlineSpan">Nr konta:</span> <input type="text" ng-model="company.accountNumber"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Zapisz</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="addCompanyModal.html">
+        <div class="modal-header">
+            <span>Nazwa firmy: <input id="name" type="text" required ng-model="nameCompany"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane firmy:</p>
+            <div class="dataBox">
+                <span class="blockSpan"><span class="inlineSpan">Adres:</span> <input id="address" type="text" required ng-model="address"></span>
+                <span class="blockSpan"><span class="inlineSpan">NIP:</span> <input id="nip" type="number" required ng-model="nip"></span>
+                <span class="blockSpan"><span class="inlineSpan">Nr konta:</span> <input id="bankAccount" type="number" required ng-model="accountNumber"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Dodaj</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+
+</div>

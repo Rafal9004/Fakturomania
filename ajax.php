@@ -15,7 +15,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if($dataType == "company"){
 
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        $result = $conn->query("SELECT id_firmy, nazwa, adres, nip, nr_konta FROM lista_firm");
+        $result = $conn->query("SELECT idCompany, nameCompany, address, nip, accountNumber FROM list_company");
 
         while($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $rows[] = $row;
@@ -31,13 +31,13 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata);
-        $name = $request->nazwa;
-        $address = $request->adres;
+        $name = $request->nameCompany;
+        $address = $request->address;
         $nip = $request->nip;
-        $bankAccount = $request->nr_konta;
+        $accountNumber = $request->accountNumber;
 
-        $sql = "INSERT INTO lista_firm (id_firmy, nazwa, adres, nip, nr_konta)
-        VALUES ('', '$name', '$address', '$nip', '$bankAccount')";
+        $sql = "INSERT INTO list_company (idCompany, nameCompany, address, nip, accountNumber)
+        VALUES ('', '$name', '$address', '$nip', '$accountNumber')";
         mysqli_query($conn, $sql);
 
         $conn->close();
@@ -47,7 +47,7 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
         $idData = $_GET["idData"];
 
-        $sql = "DELETE FROM lista_firm WHERE id_firmy=$idData";
+        $sql = "DELETE FROM list_company WHERE idCompany=$idData";
         mysqli_query($conn, $sql);
 
         $conn->close();
@@ -57,27 +57,27 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'PUT'){
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata);
-        $idFirmy = $request->id_firmy;
-        $name = $request->nazwa;
-        $address = $request->adres;
+        $idCompany = $request->idCompany;
+        $name = $request->nameCompany;
+        $address = $request->address;
         $nip = $request->nip;
-        $bankAccount = $request->nr_konta;
+        $accountNumber = $request->accountNumber;
 
-        $sql = "UPDATE lista_firm SET
-                nazwa = '$name',
-                adres = '$address',
+        $sql = "UPDATE list_company SET
+                nameCompany = '$name',
+                address = '$address',
                 nip = '$nip',
-                nr_konta = '$bankAccount'
-                WHERE id_firmy = '$idFirmy'";
+                accountNumber = '$accountNumber'
+                WHERE idCompany = '$idCompany'";
         mysqli_query($conn, $sql);
 
         $conn->close();
         echo($postdata);
     }
 
-} elseif($dataType = "products") {
+} elseif($dataType == "products") {
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        $result = $conn->query("SELECT id_produktu, nazwa, cena_netto, cena_brutto FROM lista_produktow");
+        $result = $conn->query("SELECT idProduct, nameProduct, netPrice FROM list_product");
 
         while($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $rows[] = $row;
@@ -93,12 +93,12 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata);
-        $name = $request->nazwa;
-        $netPrice = $request->cena_netto;
-        $grossPrice = $request->cena_brutto;
+        $name = $request->nameProduct;
+        $netPrice = $request->netPrice;
+        $grossPrice = $request->grossPrice;
 
-        $sql = "INSERT INTO lista_produktow (id_produktu, nazwa, cena_netto, cena_brutto)
-        VALUES ('', '$name', '$netPrice', '$grossPrice')";
+        $sql = "INSERT INTO list_product (idProduct, nameProduct, netPrice)
+        VALUES ('', '$name', '$netPrice')";
         mysqli_query($conn, $sql);
 
         $conn->close();
@@ -108,7 +108,7 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
         $idData = $_GET["idData"];
 
-        $sql = "DELETE FROM lista_produktow WHERE id_produktu=$idData";
+        $sql = "DELETE FROM list_product WHERE idProduct=$idData";
         mysqli_query($conn, $sql);
 
         $conn->close();
@@ -118,22 +118,120 @@ if($dataType == "company"){
     if($_SERVER['REQUEST_METHOD'] === 'PUT'){
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata);
-        $idProduktu = $request->id_produktu;
-        $name = $request->nazwa;
-        $netPrice = $request->cena_netto;
-        $grossPrice = $request->cena_brutto;
+        $idProduct = $request->idProduct;
+        $name = $request->nameProduct;
+        $netPrice = $request->netPrice;
+        $grossPrice = $request->grossPrice;
 
-        $sql = "UPDATE lista_produktow SET
-                nazwa = '$name',
-                cena_netto = '$netPrice',
-                cena_brutto = '$grossPrice'
-                WHERE id_produktu = '$idProduktu'";
+        $sql = "UPDATE list_product SET
+                nameProduct = '$name',
+                netPrice = '$netPrice',
+                grossPrice = '$grossPrice'
+                WHERE idProduct = '$idProduct'";
         mysqli_query($conn, $sql);
 
         $conn->close();
         echo($sql);
     }
 
+} elseif($dataType == "invoice") {
+    
+    $dataFrom = $_GET["dataFrom"];
+    
+    if($dataFrom == "invoice") {
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            $result = $conn->query("SELECT idProduct, nameProduct, netPrice, grossPrice FROM list_product");
+            
+            $sql = "SELECT list_company.nameCompany, list_invoice.numberInvoice, list_product.nameProduct, list_product_for_invoice.numbersProduct FROM list_invoice INNER JOIN list_company on list_invoice.idCompany=list_company.idCompany INNER JOIN list_product_for_invoice on list_invoice.idListProduct=list_product_for_invoice.idListProduct INNER JOIN list_product ON list_product_for_invoice.idProduct = list_product.idProduct";
+                
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $rows[] = $row;
+            }
+
+            $result = array('records' => $rows);
+            $json = json_encode($result);
+            $conn->close();
+
+            echo($json);
+        }
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $postdata = file_get_contents("php://input");
+            $request = json_decode($postdata);
+            $numberInvoice = $request->numberInvoice;
+            $idCompany = $request->idCompany;
+            $idProduct = $request->idProduct;
+            $numberProduct = $request->numberProduct;
+
+            $sql = "INSERT INTO list_invoice (idProduct, nameProduct, netPrice, grossPrice)
+            VALUES ('', '$name', '$netPrice', '$grossPrice')";
+            mysqli_query($conn, $sql);
+
+            $conn->close();
+            echo($postdata);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+            $idData = $_GET["idData"];
+
+            $sql = "DELETE FROM list_product WHERE idProduct=$idData";
+            mysqli_query($conn, $sql);
+
+            $conn->close();
+            echo($idData);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'PUT'){
+            $postdata = file_get_contents("php://input");
+            $request = json_decode($postdata);
+            $idProduct = $request->idProduct;
+            $name = $request->nameProduct;
+            $netPrice = $request->netPrice;
+            $grossPrice = $request->grossPrice;
+
+            $sql = "UPDATE list_product SET
+                    nameProduct = '$name',
+                    netPrice = '$netPrice',
+                    grossPrice = '$grossPrice'
+                    WHERE idProduct = '$idProduct'";
+            mysqli_query($conn, $sql);
+
+            $conn->close();
+            echo($sql);
+        }
+    }
+    
+    if($dataFrom == "company"){
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            $result = $conn->query("SELECT idCompany, nameCompany, address, nip FROM list_company");
+
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $rows[] = $row;
+            }
+
+            $result = array('records' => $rows);
+            $json = json_encode($result);
+            $conn->close();
+
+            echo($json);
+        }
+    }
+    
+    if($dataFrom == "product"){
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            $result = $conn->query("SELECT idProduct, nameProduct FROM list_product");
+
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $rows[] = $row;
+            }
+
+            $result = array('records' => $rows);
+            $json = json_encode($result);
+            $conn->close();
+
+            echo($json);
+        }
+    }
 }
 
 
