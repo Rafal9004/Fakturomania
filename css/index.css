@@ -1,0 +1,97 @@
+/* line 1, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+body {
+    margin: 0;
+}
+
+
+/* line 6, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.nav {
+    background-color: #00004d;
+}
+
+
+/* line 9, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.nav ul {
+    list-style: none;
+}
+
+
+/* line 12, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.nav ul li {
+    display: inline-block;
+    color: white;
+    padding: 10px;
+}
+
+
+/* line 18, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.nav ul a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* line 22, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.nav ul a:hover {
+    color: red;
+}
+
+
+/* line 30, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.firmBox {
+    margin: 8px;
+}
+
+
+/* line 34, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+/* line 38, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+table td {
+    border: solid 1px;
+}
+
+
+/* line 45, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.popupBackground {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+div.popupBackground.showPopup {
+    display: block;
+}
+
+
+/* line 54, D:/Xampp/htdocs/Projekty/ProjektyHTML/projektyhtml.cba.pl/Angular/css/index.scss */
+
+div.popupBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background-color: white;
+}
+
+
+/*# sourceMappingURL=index.css.map */

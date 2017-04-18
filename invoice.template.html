@@ -1,0 +1,72 @@
+<div class="invoiceBox mainDataBox" ng-controller="invoiceCtrl">
+
+    <div class="searchBox">
+        <span>Wyszukaj Fakturę: </span>
+        <input class="inputSearch" ng-model="search.numberInvoice" placeholder="Numer faktury">
+        <input class="inputSearch" ng-model="search.nameCompany" placeholder="Nazwa firmy">
+        <input class="inputSearch" ng-model="search.nameProduct" placeholder="Nazwa produktu">
+        <span class="addFirm"><button class="buttonAddFirm" ng-click="addDataInvoice()">Dodaj fakturę</button></span>
+    </div>
+
+    <table>
+        <thead>
+           <th class="thSort">
+                <button  ng-click="sortBy('numberInvoice')">Nr faktury <span class="sortorder" ng-show="propertyName === 'numberInvoice'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('nameCompany')">Nazwa firmy <span class="sortorder" ng-show="propertyName === 'nameCompany'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th class="thSort">
+                <button  ng-click="sortBy('nameProduct')">Nazwa produktu <span class="sortorder" ng-show="propertyName === 'nameProduct'" ng-class="{reverse: reverse}"></span></button>
+            </th>
+            <th>Akcja</th>
+            <th>Usuń</th>
+        </thead>
+        <tbod>
+            <tr ng-repeat="invoice in invoiceList | filter : search | orderBy : propertyName : reverse">
+                <td>{{invoice.numberInvoice}}</td>
+                <td>{{invoice.nameCompany}}</td>
+                <td>{{invoice.nameProduct}}</td>
+                <td class="centerRow"><button class="edit" ng-click="editDataInvoice(invoice)">Edytuj</button></td>
+                <td class="centerRow"><button class="delete" ng-click="deleteDataInvoice(invoice.idInvoice, $index)">Usuń</button></td>
+            </tr>
+        </tbod>
+    </table>
+
+    <script type="text/ng-template" id="addInvoiceModal.html">
+        <div class="modal-header">
+            <span>Numer faktury: <input type="text" ng-model="newNumberInvoice"></span>
+        </div>
+        <div class="modal-body">
+            <p>Dane faktury:</p>
+            <div class="dataFirm">
+                <span class="blockSpan">
+                    <span class="inlineSpan">Nazwa firmy:</span>
+                    <select selector model="company" options="companies" view-item-template="'selector/companies'" dropdown-item-template="'selector/companies'"></select>
+                </span>
+                <span class="blockSpan">
+                    <span class="inlineSpan">Nazwa produktu:</span> 
+                    <select selector multi="true" model="product" options="products" view-item-template="'selector/product/view'" dropdown-item-template="'selector/product'"></select>
+                </span>
+<!--                <span class="blockSpan"><span class="inlineSpan">Liczba :</span> <input type="number" ng-model="newNumberProduct"></span>-->
+               <span></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="save()">Dodaj</button>
+            <button class="btn btn-warning" ng-click="close()">Zamknij</button>
+        </div>
+    </script>
+    
+    <script type="text/ng-template" id="selector/companies">
+        <span>{{option.nameCompany}}, {{option.address}} - NIP: {{option.nip}}</span>
+    </script>
+    
+    <script type="text/ng-template" id="selector/product">
+        <span>{{option.nameProduct}} - {{option.grossPrice}} zł</span>
+    </script>
+    <script type="text/ng-template" id="selector/product/view">
+        <span>{{option.nameProduct}} - {{option.grossPrice}} zł <input type="number" class="numberProductInput" ng-model="newNumberProduct"></span>
+    </script>
+
+</div>
