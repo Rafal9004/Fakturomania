@@ -25,13 +25,12 @@ firmApp.controller('companyCtrl', function ($scope, $http, $uibModal, $filter, l
         });
 
         modalInstance.result.then(function (newCompany){
+            if(! $scope.companyList){
+                $scope.companyList = [];
+            }
+            
             if(newCompany){
-                if($scope.companyList){
-                    $scope.companyList.push(newCompany);
-                } else {
-                    $scope.companyList = [];
-                    $scope.companyList.push(newCompany);
-                }
+                $scope.companyList.push(newCompany);
             }
         });
     };

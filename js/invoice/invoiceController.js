@@ -26,13 +26,11 @@ firmApp.controller('invoiceCtrl', function ($scope, $http, $uibModal, $filter, l
         });
 
         modalInstance.result.then(function (newInvoice){
+            if(! $scope.invoiceList){
+                $scope.invoiceList = [];
+            }
             if(newInvoice){
-                if($scope.invoiceList){
-                    $scope.invoiceList.push(newInvoice);
-                } else {
-                    $scope.invoiceList = [];
-                    $scope.invoiceList.push(newInvoice);
-                }
+                $scope.invoiceList.push(newInvoice);
             }
         });
     };
@@ -90,17 +88,29 @@ firmApp.controller('addInvoiceCtrl', function ($scope, $http, $uibModalInstance,
     localRepositoryInvoice.getDataProduct(function(data){
         $scope.products = data;
     });
-    
 
+    $scope.deleteSelectedProduct = function(product){
+        $scope.selectProduct.splice($scope.selectProduct.indexOf(product), 1);
+    }
+    
+    $scope.totalPrice = function(){
+        var totalPrice = 0;
+        angular.forEach($scope.selectProduct, function(value){
+            totalPrice += (value.netPrice * 1.23) * value.productCount;
+        });
+        return totalPrice;
+    }
+    
     $scope.close = function() {
         $uibModalInstance.close();
     };
 
     $scope.save = function() {
         var newInvoice = null;
-        newInvoice = localModelInvoice.createInvoice($scope.newNumberInvoice, $scope.company.idCompany, $scope.product.idProduct, $scope.newNumberProduct);
         
-        console.log(newInvoice);
+        console.log($scope.company.idCompany , $scope.company.nameCompany, $scope.newNumberInvoice);
+        
+//        newInvoice = localModelInvoice.createInvoice($scope.newNumberInvoice, $scope.company.idCompany, $scope.product.idProduct, $scope.newNumberProduct);
 
 //        localRepositoryInvoice.sendDataInvoice(newInvoice);
 

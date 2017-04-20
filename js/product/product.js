@@ -1,7 +1,8 @@
 angular.module("modelProduct", [])
     .factory("localModelProduct", function(){
 
-    function Product(nameProduct, netPrice){
+    function Product(idProduct, nameProduct, netPrice){
+        this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.netPrice = netPrice;
     };
@@ -11,8 +12,8 @@ angular.module("modelProduct", [])
     };
 
     return{
-        createProduct: function(nameProduct, netPrice){
-            return new Product(nameProduct, netPrice);
+        createProduct: function(idProduct, nameProduct, netPrice){
+            return new Product(idProduct, nameProduct, netPrice);
         }
     }
 
