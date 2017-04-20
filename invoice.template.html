@@ -44,12 +44,20 @@
                     <span class="inlineSpan">Nazwa firmy:</span>
                     <select selector model="company" options="companies" view-item-template="'selector/companies'" dropdown-item-template="'selector/companies'"></select>
                 </span>
-                <span class="blockSpan">
-                    <span class="inlineSpan">Nazwa produktu:</span> 
-                    <select selector multi="true" model="product" options="products" view-item-template="'selector/product/view'" dropdown-item-template="'selector/product'"></select>
+                <span class="blockSpan productSelectSpan">
+                    <span class="inlineSpan">Wybierz produkty:</span> 
+                    <select selector multi="true" model="selectProduct" options="products" dropdown-item-template="'selector/product'"></select>
                 </span>
-<!--                <span class="blockSpan"><span class="inlineSpan">Liczba :</span> <input type="number" ng-model="newNumberProduct"></span>-->
-               <span></span>
+                
+                <ul class="productSelectedList">
+                    <li ng-repeat="product in selectProduct">
+                        {{product.nameProduct}} - {{product.netPrice * 1.23}} zł -
+                        <input ng-model="product.productCount" type="number" class="inputProductCount" min="1" ng-value="{{1}}"> szt.
+                        <button class="delete" ng-click="deleteSelectedProduct(product)">X</button>
+                    </li>
+                </ul>
+                
+                <span class="blockSpan totalitySpan"><span class="inlineSpan">Suma Faktury :</span> <input ng-readonly="true" value="{{totalPrice()}}" ng-bind=""></span>
             </div>
         </div>
         <div class="modal-footer">
@@ -63,10 +71,7 @@
     </script>
     
     <script type="text/ng-template" id="selector/product">
-        <span>{{option.nameProduct}} - {{option.grossPrice}} zł</span>
-    </script>
-    <script type="text/ng-template" id="selector/product/view">
-        <span>{{option.nameProduct}} - {{option.grossPrice}} zł <input type="number" class="numberProductInput" ng-model="newNumberProduct"></span>
+        <span>{{option.nameProduct}} - {{option.netPrice * 1.23}} zł</span>
     </script>
 
 </div>

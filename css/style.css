@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+input{
+    padding: 5px;
+}
+
 div.nav {
     background-color: #00004d;
 }
@@ -81,9 +85,6 @@ button:hover {
     text-align: center;
     padding: 25px 0;
 }
-.searchBox input {
-    padding: 5px;
-}
 
 /*--------------------------------------------Dialog------------------------------------------------------*/
 .modal.fade.ng-scope.ng-isolate-scope.in {
@@ -104,6 +105,7 @@ button:hover {
     background-color: white;
     margin-top: 10%;
     padding: 20px;
+    max-height: calc(100% - 200px);
 }
 
 .modal-footer.ng-scope {
@@ -117,16 +119,35 @@ span.blockSpan {
 }
 
 span.blockSpan span.inlineSpan {
-    width: 120px;
+    width: 130px;
     display: inline-block;
 }
 
-input.numberProductInput{
-    width: 50px !important;
-    float: right !important;
-    background: white !important;
-    text-align: center;
-    font-size: 14px;
-    margin-left: 10px !important;
-    border: none !important;
+.productSelectSpan .selector-values>li>div{
+    display: none !important;
+}
+.productSelectSpan .selector-values>li{
+    display: none !important;
+}
+
+/*------------------------------------------Faktury-----------------------------------------------*/
+
+.productSelectedList{
+    list-style: none;
+}
+.productSelectedList li{
+    padding: 5px 0;
+}
+.inputProductCount{
+    width: 50px;
+}
+span.blockSpan.totalitySpan {
+    text-align: right;
+    font-size: 24px;
+}
+span.blockSpan.totalitySpan .inlineSpan{
+    width: 160px;
+}
+span.blockSpan.totalitySpan input{
+    font-size: 20px;
 }

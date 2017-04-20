@@ -121,12 +121,10 @@ if($dataType == "company"){
         $idProduct = $request->idProduct;
         $name = $request->nameProduct;
         $netPrice = $request->netPrice;
-        $grossPrice = $request->grossPrice;
 
         $sql = "UPDATE list_product SET
                 nameProduct = '$name',
-                netPrice = '$netPrice',
-                grossPrice = '$grossPrice'
+                netPrice = '$netPrice'
                 WHERE idProduct = '$idProduct'";
         mysqli_query($conn, $sql);
 
@@ -219,7 +217,7 @@ if($dataType == "company"){
     
     if($dataFrom == "product"){
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
-            $result = $conn->query("SELECT idProduct, nameProduct FROM list_product");
+            $result = $conn->query("SELECT idProduct, nameProduct, netPrice FROM list_product");
 
             while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $rows[] = $row;

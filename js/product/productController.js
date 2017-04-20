@@ -1,7 +1,12 @@
 firmApp.controller('productCtrl', function ($scope, $http, $uibModal, $filter, localModelProduct, localRepositoryProduct) {
-
+    
+    $scope.productList = [];
+    
     localRepositoryProduct.getDataProduct (function(data){
-        $scope.productList = data;
+        angular.forEach(data, function(value){
+            newProduct = localModelProduct.createProduct(value.idProduct, value.nameProduct, value.netPrice);
+            $scope.productList.push(newProduct);
+        });
     });
 
     $scope.propertyName = 'nameProduct';
@@ -26,13 +31,11 @@ firmApp.controller('productCtrl', function ($scope, $http, $uibModal, $filter, l
         });
 
         modalInstance.result.then(function (newProduct){
+            if(! $scope.productList){
+                $scope.productList = [];
+            }
             if(newProduct){
-                if($scope.productList){
-                    $scope.productList.push(newProduct);
-                } else {
-                    $scope.productList = [];
-                    $scope.productList.push(newProduct);
-                }
+                $scope.productList.push(newProduct);
             }
         });
     };
@@ -74,7 +77,7 @@ firmApp.controller('editProductCtrl', function ($scope, $http, $uibModalInstance
 
     $scope.save = function() {
         localRepositoryProduct.updateDataProduct($scope.product);
-
+        
         $uibModalInstance.close($scope.product);
     }
 });
@@ -88,7 +91,7 @@ firmApp.controller('addProductCtrl', function ($scope, $http, $uibModalInstance,
     $scope.save = function() {
         var newProduct = null;
 
-        newProduct = localModelProduct.createProduct($scope.nameProduct, $scope.netPrice);
+        newProduct = localModelProduct.createProduct(" ", $scope.nameProduct, $scope.netPrice);
 
         localRepositoryProduct.sendDataProduct(newProduct);
 

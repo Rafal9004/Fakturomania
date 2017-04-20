@@ -1,16 +1,19 @@
 angular.module("modelInvoice", [])
     .factory("localModelInvoice", function(){
 
-    function Invoice(numberInvoice, idCompany, idProduct, numberProduct){
-        this.numberInvoice = numberInvoice;
+    function Invoice(idCompany, nameCompany, numberInvoice, idProduct, nameProduct, productCount){
         this.idCompany = idCompany;
+        this.nameCompany = nameCompany;
+        this.idListProduct = idListProduct;
+        this.numberInvoice = numberInvoice;
         this.idProduct = idProduct;
-        this.numberProduct = numberProduct;
+        this.nameProduct = nameProduct;
+        this.productCount = productCount;
     };
 
     return{
-        createInvoice: function(numberInvoice, idCompany, idProduct, numberProduct){
-            return new Invoice(numberInvoice, idCompany, idProduct, numberProduct);
+        createInvoice: function(idCompany, nameCompany, numberInvoice, idProduct, nameProduct, productCount){
+            return new Invoice(idCompany, nameCompany, numberInvoice, idProduct, nameProduct, productCount);
         }
     }
 
